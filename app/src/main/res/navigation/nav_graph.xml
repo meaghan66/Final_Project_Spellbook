@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    app:startDestination="@id/allSpellsFragment">
+
+    <fragment
+        android:id="@+id/allSpellsFragment"
+        android:name="com.spellbookapp.AllSpellsFragment"
+        android:label="All Spells"
+        tools:layout="@layout/fragment_all_spells"/>
+
+
+    <fragment
+        android:id="@+id/preparedSpellsFragment"
+        android:name="com.spellbookapp.PreparedSpellsFragment"
+        android:label="Prepared Spells"
+        tools:layout="@layout/fragment_prepared_spells"/>
+
+</navigation>
