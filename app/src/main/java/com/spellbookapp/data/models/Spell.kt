@@ -22,3 +22,21 @@ data class ApiReference(
     val index: String,
     val url: String
 )
+
+fun Spell.toSpellEntity(): SpellEntity {
+    return SpellEntity(
+        spellId = this.index,
+        name = this.name,
+        level = this.level,
+        school = this.school.name,
+        castingTime = this.casting_time,
+        range = this.range,
+        duration = this.duration,
+        components = this.components.joinToString(", "),
+        material = this.material,
+        description = this.description.joinToString("\n"),
+        higherLevel = this.higher_level?.joinToString("\n"),
+        isFavorite = false
+    )
+}
+

@@ -1,6 +1,7 @@
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
+    kotlin("kapt")
 }
 
 android {
@@ -46,9 +47,19 @@ dependencies {
     // GSON converter for Retrofit
     implementation("com.squareup.retrofit2:converter-gson:2.9.0")
 
-// Kotlin Coroutines (optional but likely used with suspend functions)
+    // Kotlin Coroutines (optional but likely used with suspend functions)
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.7.3")
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.7.3")
+
+    // Room components
+    implementation("androidx.room:room-runtime:2.6.1")
+    kapt("androidx.room:room-compiler:2.6.1") // for annotation processing
+
+    // Optional - Kotlin Extensions and Coroutines support for Room
+    implementation("androidx.room:room-ktx:2.6.1")
+
+    // Lifecycle for LiveData
+    implementation("androidx.lifecycle:lifecycle-livedata-ktx:2.7.0")
 
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
