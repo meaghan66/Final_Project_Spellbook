@@ -4,17 +4,41 @@
     xmlns:tools="http://schemas.android.com/tools"
     app:startDestination="@id/allSpellsFragment">
 
+    <!-- All Spells Fragment -->
     <fragment
         android:id="@+id/allSpellsFragment"
         android:name="com.spellbookapp.AllSpellsFragment"
         android:label="All Spells"
-        tools:layout="@layout/fragment_all_spells"/>
+        tools:layout="@layout/fragment_all_spells">
+        <action
+            android:id="@+id/action_allSpellsFragment_to_spellDetailFragment"
+            app:destination="@id/spellDetailFragment" />
+    </fragment>
 
-
+    <!-- Prepared Spells Fragment -->
     <fragment
         android:id="@+id/preparedSpellsFragment"
         android:name="com.spellbookapp.PreparedSpellsFragment"
         android:label="Prepared Spells"
-        tools:layout="@layout/fragment_prepared_spells"/>
+        tools:layout="@layout/fragment_prepared_spells">
+        <action
+            android:id="@+id/action_preparedSpellsFragment_to_spellDetailFragment"
+            app:destination="@id/spellDetailFragment" />
+    </fragment>
+
+    <!-- Spell Detail Fragment -->
+    <fragment
+        android:id="@+id/spellDetailFragment"
+        android:name="com.spellbookapp.SpellDetailFragment"
+        android:label="Spell Details"
+        tools:layout="@layout/fragment_spell_detail">
+        <argument
+            android:name="spellId"
+            app:argType="string" />
+
+        <argument
+            android:name="isPrepared"
+            app:argType="boolean" />
+    </fragment>
 
 </navigation>
