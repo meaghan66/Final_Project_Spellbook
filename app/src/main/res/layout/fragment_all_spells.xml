@@ -1,8 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.recyclerview.widget.RecyclerView
+<LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/recyclerViewAllSpells"
+    android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="8dp"
-    android:clipToPadding="false"/>
+    android:padding="8dp">
+
+    <!-- Dropdown for selecting a D&D class -->
+    <androidx.appcompat.widget.AppCompatSpinner
+        android:id="@+id/classSpinner"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:spinnerMode="dropdown"/>
+
+    <!-- RecyclerView for listing spells -->
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerViewAllSpells"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:clipToPadding="false"/>
+</LinearLayout>

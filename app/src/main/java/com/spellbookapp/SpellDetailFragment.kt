@@ -35,21 +35,37 @@ class SpellDetailFragment : Fragment(R.layout.fragment_spell_detail) {
     // Views
     private lateinit var spellName: TextView
     private lateinit var spellDescription: TextView
+    private lateinit var spellComponents: TextView
+    private lateinit var spellCastingTime: TextView
     private lateinit var prepareButton: Button
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        // Find views manually (no ViewBinding)
+        // Find views manually
         spellName = view.findViewById(R.id.spellName)
         spellDescription = view.findViewById(R.id.spellDescription)
+        spellComponents = view.findViewById(R.id.spellComponents)
+        spellCastingTime = view.findViewById(R.id.spellCastingTime)
         prepareButton = view.findViewById(R.id.prepareButton)
+        val backButton = view.findViewById<Button>(R.id.backButton)
+        backButton.setOnClickListener {
+            findNavController().navigateUp()
+        }
+
+        prepareButton.text = if (args.isPrepared) "Remove Spell" else "Prepare Spell"
 
         // Observe and update UI
-        viewModel.getSpell(args.spellId).observe(viewLifecycleOwner) { spell: Spell? ->
+        viewModel.getSpell(args.spellId).observe(viewLifecycleOwner) { spell ->
             spell?.let { loadedSpell ->
                 spellName.text = loadedSpell.name
-                spellDescription.text = loadedSpell.description?.joinToString("\n\n") ?: "No description available."
+
+                spellDescription.text = loadedSpell.description?.joinToString("\n") ?: "No description available."
+
+                spellComponents.text = loadedSpell.components?.joinToString(", ") ?: "No components listed."
+
+                spellCastingTime.text = loadedSpell.casting_time
+
                 prepareButton.setOnClickListener {
                     if (args.isPrepared) {
                         viewModel.removeSpell(loadedSpell.index)

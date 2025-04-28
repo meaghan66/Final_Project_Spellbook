@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.spellbookapp.data.database.SpellDatabase
@@ -34,7 +35,11 @@ class PreparedSpellsFragment : Fragment(R.layout.fragment_prepared_spells) {
         recyclerView = view.findViewById(R.id.recyclerViewPreparedSpells)
         recyclerView.layoutManager = LinearLayoutManager(requireContext())
         adapter = SpellAdapter(emptyList()) { spell ->
-            // Navigate to detail screen if you want
+            val action = PreparedSpellsFragmentDirections.actionPreparedSpellsFragmentToSpellDetailFragment(
+                spellId = spell.index,
+                isPrepared = true
+            )
+            findNavController().navigate(action)
         }
         recyclerView.adapter = adapter
 

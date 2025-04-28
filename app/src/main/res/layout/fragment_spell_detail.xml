@@ -25,10 +25,29 @@
             android:textSize="16sp"
             android:paddingBottom="24dp"/>
 
+        <TextView
+            android:id="@+id/spellComponents"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Components:" />
+
+        <TextView
+            android:id="@+id/spellCastingTime"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Casting Time:" />
+
         <Button
             android:id="@+id/prepareButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Prepare Spell"/>
+
+        <Button
+            android:id="@+id/backButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Back" />
+
     </LinearLayout>
 </ScrollView>

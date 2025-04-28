@@ -4,6 +4,8 @@ import android.os.Bundle
 import android.view.Menu
 import android.view.MenuInflater
 import android.view.View
+import android.widget.AdapterView
+import android.widget.ArrayAdapter
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
@@ -39,6 +41,7 @@ class AllSpellsFragment : Fragment(R.layout.fragment_all_spells) {
         val recyclerView = view.findViewById<RecyclerView>(R.id.recyclerViewAllSpells)
         recyclerView.layoutManager = LinearLayoutManager(requireContext())
 
+
         adapter = SpellAdapter(emptyList()) { spell ->
             val action = AllSpellsFragmentDirections.actionAllSpellsFragmentToSpellDetailFragment(
                 spellId = spell.index,
@@ -50,10 +53,43 @@ class AllSpellsFragment : Fragment(R.layout.fragment_all_spells) {
 
         viewModel.spells.observe(viewLifecycleOwner) { spells ->
             adapter.updateSpells(spells)
+
+            val spinner = view.findViewById<androidx.appcompat.widget.AppCompatSpinner>(R.id.classSpinner)
+            val classes = listOf(
+                "All",
+                "Barbarian",
+                "Bard",
+                "Cleric",
+                "Druid",
+                "Fighter",
+                "Monk",
+                "Paladin",
+                "Ranger",
+                "Rogue",
+                "Sorcerer",
+                "Warlock",
+                "Wizard"
+            )
+            val spinnerAdapter = ArrayAdapter(requireContext(), android.R.layout.simple_spinner_item, classes)
+            spinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+            spinner.adapter = spinnerAdapter
+
+            spinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+                override fun onItemSelected(parent: AdapterView<*>, view: View?, position: Int, id: Long) {
+                    val selectedClass = classes[position]
+                    filterByClass(selectedClass)
+                }
+
+                override fun onNothingSelected(parent: AdapterView<*>) {
+                    // No action needed
+                }
+            }
         }
+
 
         viewModel.fetchSpells()
     }
+
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         inflater.inflate(R.menu.menu_search, menu)
@@ -79,4 +115,18 @@ class AllSpellsFragment : Fragment(R.layout.fragment_all_spells) {
         } ?: emptyList()
         adapter.updateSpells(filteredList)
     }
+
+    private fun filterByClass(selectedClass: String) {
+        val allSpells = viewModel.spells.value ?: return
+        val filtered = if (selectedClass == "All") {
+            allSpells
+        } else {
+            allSpells.filter { spell ->
+                spell.classes?.any { it.name.equals(selectedClass, ignoreCase = true) } == true
+            }
+        }
+        adapter.updateSpells(filtered)
+    }
+
+
 }
