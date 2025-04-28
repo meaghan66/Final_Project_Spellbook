@@ -1,19 +1,21 @@
 package com.spellbookapp.data.models
 
+import com.google.gson.annotations.SerializedName
+
 data class Spell(
     val index: String, // Unique ID used in the API
     val name: String,
     val level: Int,
     val school: ApiReference,
-    val casting_time: String,
+    @SerializedName("casting_time") val casting_time: String,
     val range: String,
     val duration: String,
     val components: List<String>,
     val material: String?, // Optional, only exists for some spells
-    val description: List<String>,
+    @SerializedName("desc") val description: List<String>?,
     val higher_level: List<String>?,
-    val classes: List<ApiReference>,
-    var isFavorite: Boolean = false // App-specific field, not from API
+    val classes: List<ApiReference>?,
+    var isPrepared: Boolean = false // App-specific field, not from API
 )
 
 // Reusable type from the DnD API for references to other resources
@@ -34,9 +36,9 @@ fun Spell.toSpellEntity(): SpellEntity {
         duration = this.duration,
         components = this.components.joinToString(", "),
         material = this.material,
-        description = this.description.joinToString("\n"),
+        description = this.description?.joinToString("\n") ?: "",
         higherLevel = this.higher_level?.joinToString("\n"),
-        isFavorite = false
+        isPrepared = false
     )
 }
 

@@ -7,7 +7,7 @@ import androidx.room.RoomDatabase
 
 import com.spellbookapp.data.models.SpellEntity
 
-@Database(entities = [SpellEntity::class], version = 1, exportSchema = false)
+@Database(entities = [SpellEntity::class], version = 2, exportSchema = false)
 abstract class SpellDatabase : RoomDatabase() {
 
     abstract fun spellDao(): SpellDao
@@ -22,7 +22,9 @@ abstract class SpellDatabase : RoomDatabase() {
                     context.applicationContext,
                     SpellDatabase::class.java,
                     "spell_database"
-                ).build()
+                )
+                    .fallbackToDestructiveMigration()
+                    .build()
                 INSTANCE = instance
                 instance
             }

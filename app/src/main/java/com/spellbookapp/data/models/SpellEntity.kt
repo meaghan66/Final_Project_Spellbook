@@ -16,7 +16,7 @@ data class SpellEntity(
     val material: String?,
     val description: String,
     val higherLevel: String?, // optional extra description
-    val isFavorite: Boolean = false
+    val isPrepared: Boolean = false
 )
 
 fun SpellEntity.toSpell(): Spell {
@@ -37,6 +37,6 @@ fun SpellEntity.toSpell(): Spell {
         description = this.description.split("\n"),
         higher_level = this.higherLevel?.split("\n"),
         classes = emptyList(), // Not stored locally, so leave empty or fetch separately
-        isFavorite = this.isFavorite
+        isPrepared = this.isPrepared
     )
 }
