@@ -34,6 +34,7 @@ class SpellDetailFragment : Fragment(R.layout.fragment_spell_detail) {
 
     // Views
     private lateinit var spellName: TextView
+    private lateinit var spellLevel: TextView // New TextView for spell level
     private lateinit var spellDescription: TextView
     private lateinit var spellComponents: TextView
     private lateinit var spellCastingTime: TextView
@@ -44,6 +45,7 @@ class SpellDetailFragment : Fragment(R.layout.fragment_spell_detail) {
 
         // Find views manually
         spellName = view.findViewById(R.id.spellName)
+        spellLevel = view.findViewById(R.id.spellLevel) // Bind new TextView
         spellDescription = view.findViewById(R.id.spellDescription)
         spellComponents = view.findViewById(R.id.spellComponents)
         spellCastingTime = view.findViewById(R.id.spellCastingTime)
@@ -59,6 +61,8 @@ class SpellDetailFragment : Fragment(R.layout.fragment_spell_detail) {
         viewModel.getSpell(args.spellId).observe(viewLifecycleOwner) { spell ->
             spell?.let { loadedSpell ->
                 spellName.text = loadedSpell.name
+
+                spellLevel.text = "Level: ${loadedSpell.level}" // Assuming the level property exists
 
                 spellDescription.text = loadedSpell.description?.joinToString("\n") ?: "No description available."
 

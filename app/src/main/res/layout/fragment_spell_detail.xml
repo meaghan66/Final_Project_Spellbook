@@ -23,6 +23,18 @@
             android:paddingBottom="16dp" />
 
         <TextView
+            android:id="@+id/spellLevel"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/medieval_sharp"
+            android:textSize="26sp"
+            android:textStyle="bold"
+            android:text="Level: "
+            android:textColor="@color/deep_red"
+            android:gravity="center"
+            android:paddingBottom="16dp" />
+
+        <TextView
             android:id="@+id/spellDescription"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
