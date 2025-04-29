@@ -4,15 +4,25 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="8dp">
+    android:background="@drawable/parchment_background"
+    android:padding="16dp">
 
-    <!-- Dropdown for selecting a D&D class -->
+    <!-- Fantasy-themed dropdown for selecting a D&D class -->
     <androidx.appcompat.widget.AppCompatSpinner
         android:id="@+id/classSpinner"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
-        android:spinnerMode="dropdown"/>
+        android:layout_marginBottom="12dp"
+        android:backgroundTint="@color/accent_gold"
+        android:popupBackground="@color/parchment_background"
+        android:theme="@style/SpinnerTheme.Fantasy"/>
+
+    <!-- Divider -->
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:background="@color/accent_gold"
+        android:layout_marginVertical="8dp" />
 
     <!-- RecyclerView for listing spells -->
     <androidx.recyclerview.widget.RecyclerView
@@ -20,5 +30,7 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
-        android:clipToPadding="false"/>
+        android:clipToPadding="false"
+        android:paddingTop="8dp" />
+
 </LinearLayout>
