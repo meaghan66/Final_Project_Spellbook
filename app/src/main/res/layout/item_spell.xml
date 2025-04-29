@@ -1,17 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.cardview.widget.CardView
+<com.google.android.material.card.MaterialCardView
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_margin="8dp"
-    android:elevation="4dp"
-    android:padding="8dp">
+    app:cardBackgroundColor="@color/parchment_background"
+    app:cardCornerRadius="16dp"
+    app:strokeColor="@color/deep_red"
+    app:strokeWidth="2dp"
+    app:cardElevation="10dp">
 
     <TextView
         android:id="@+id/spellNameTextView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textSize="18sp"
-        android:textColor="@android:color/black"
-        android:padding="8dp"/>
-</androidx.cardview.widget.CardView>
+        android:fontFamily="@font/medieval_sharp"
+        android:textSize="22sp"
+        android:textStyle="bold"
+        android:textColor="@color/spell_text_color"
+        android:gravity="center"
+        android:padding="16dp" />
+
+</com.google.android.material.card.MaterialCardView>

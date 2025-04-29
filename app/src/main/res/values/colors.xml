@@ -7,4 +7,9 @@
     <color name="teal_700">#FF018786</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+    <color name="parchment_background">#F5E8C7</color>
+    <color name="spell_text_color">#2E1A0F</color>
+    <color name="accent_gold">#D4AF37</color>
+    <color name="deep_red">#8B0000</color>
+    <color name="forest_green">#228B22</color>
 </resources>

@@ -3,6 +3,7 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/parchment_background"
     android:padding="16dp">
 
     <LinearLayout
@@ -14,40 +15,62 @@
             android:id="@+id/spellName"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textSize="24sp"
+            android:fontFamily="@font/medieval_sharp"
+            android:textSize="26sp"
             android:textStyle="bold"
-            android:paddingBottom="16dp"/>
+            android:textColor="@color/deep_red"
+            android:gravity="center"
+            android:paddingBottom="16dp" />
 
         <TextView
             android:id="@+id/spellDescription"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textSize="16sp"
-            android:paddingBottom="24dp"/>
+            android:fontFamily="@font/medieval_sharp"
+            android:textSize="18sp"
+            android:textColor="@color/spell_text_color"
+            android:paddingBottom="24dp" />
 
         <TextView
             android:id="@+id/spellComponents"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Components:" />
+            android:fontFamily="@font/medieval_sharp"
+            android:text="Components:"
+            android:textColor="@color/deep_red"
+            android:textStyle="bold"
+            android:paddingBottom="8dp" />
 
         <TextView
             android:id="@+id/spellCastingTime"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Casting Time:" />
+            android:fontFamily="@font/medieval_sharp"
+            android:text="Casting Time:"
+            android:textColor="@color/deep_red"
+            android:textStyle="bold"
+            android:paddingBottom="24dp" />
 
         <Button
             android:id="@+id/prepareButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Prepare Spell"/>
+            android:fontFamily="@font/medieval_sharp"
+            android:backgroundTint="@color/accent_gold"
+            android:textColor="@android:color/black"
+            android:text="Prepare Spell"
+            android:layout_gravity="center"
+            android:layout_marginBottom="16dp" />
 
         <Button
             android:id="@+id/backButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Back" />
+            android:fontFamily="@font/medieval_sharp"
+            android:backgroundTint="@color/deep_red"
+            android:textColor="@android:color/white"
+            android:text="Back"
+            android:layout_gravity="center" />
 
     </LinearLayout>
 </ScrollView>

@@ -28,6 +28,39 @@ class SpellRepository(
         }
     }
 
+    // technically working version with classes
+    // but takes a REALLYYYY long time
+//    suspend fun getAllSpellsFromApi(): List<Spell> {
+//        return try {
+//            val response = api.getAllSpells()
+//            if (response.isSuccessful) {
+//                val results = response.body()?.results?.filterNotNull() ?: emptyList()
+//
+//                // Fetch full details for each spell in parallel
+//                results.mapNotNull { summary ->
+//                    try {
+//                        val detailResponse = api.getSpellByIndex(summary.index)
+//                        if (detailResponse.isSuccessful) {
+//                            detailResponse.body()
+//                        } else {
+//                            Log.e("SpellRepository", "Failed to fetch details for ${summary.index}")
+//                            null
+//                        }
+//                    } catch (e: Exception) {
+//                        Log.e("SpellRepository", "Error fetching spell details for ${summary.index}", e)
+//                        null
+//                    }
+//                }
+//            } else {
+//                Log.e("SpellRepository", "API call failed: ${response.code()} ${response.message()}")
+//                emptyList()
+//            }
+//        } catch (e: Exception) {
+//            Log.e("SpellRepository", "Network error", e)
+//            emptyList()
+//        }
+//    }
+
     suspend fun getSpellDetails(index: String): Spell? {
         return api.getSpellByIndex(index).body()
     }
