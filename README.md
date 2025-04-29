@@ -30,7 +30,7 @@ SpellBook App is a D&D Android application for searching and preparing spells. T
 
 ---
 
-## 🧰 Installation
+## Requirements
 All that is needed for installing this application is to clone this repository and open it in Android Studio.
 
 git clone https://github.com/yourusername/Final_Project_Spellbook.git
