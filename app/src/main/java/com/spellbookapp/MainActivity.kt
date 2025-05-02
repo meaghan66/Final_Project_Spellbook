@@ -1,10 +1,13 @@
 package com.spellbookapp.ui
 
 import android.os.Bundle
+import android.view.ViewGroup
 import androidx.activity.OnBackPressedCallback
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.GravityCompat
+import androidx.core.view.ViewCompat
+import androidx.core.view.WindowInsetsCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
@@ -26,6 +29,19 @@ class MainActivity : AppCompatActivity() {
         drawerLayout = findViewById(R.id.drawer_layout)
         val toolbar: MaterialToolbar = findViewById(R.id.toolbar)
         val navigationView: NavigationView = findViewById(R.id.navigation_view)
+
+        ViewCompat.setOnApplyWindowInsetsListener(toolbar) { v, insets ->
+            val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
+
+            // Add top margin instead of padding so content below shifts down correctly
+            val layoutParams = v.layoutParams as ViewGroup.MarginLayoutParams
+            layoutParams.topMargin = systemBars.top
+            v.layoutParams = layoutParams
+
+            insets
+        }
+        ViewCompat.requestApplyInsets(toolbar)
+
 
         setSupportActionBar(toolbar)
 

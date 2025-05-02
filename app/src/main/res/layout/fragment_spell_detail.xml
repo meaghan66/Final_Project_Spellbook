@@ -18,7 +18,7 @@
             android:fontFamily="@font/medieval_sharp"
             android:textSize="26sp"
             android:textStyle="bold"
-            android:textColor="@color/deep_red"
+            android:textColor="@color/deep_blue"
             android:gravity="center"
             android:paddingBottom="16dp" />
 
@@ -30,7 +30,7 @@
             android:textSize="26sp"
             android:textStyle="bold"
             android:text="Level: "
-            android:textColor="@color/deep_red"
+            android:textColor="@color/deep_blue"
             android:gravity="center"
             android:paddingBottom="16dp" />
 
@@ -49,7 +49,7 @@
             android:layout_height="wrap_content"
             android:fontFamily="@font/medieval_sharp"
             android:text="Components:"
-            android:textColor="@color/deep_red"
+            android:textColor="@color/deep_blue"
             android:textStyle="bold"
             android:paddingBottom="8dp" />
 
@@ -59,7 +59,7 @@
             android:layout_height="wrap_content"
             android:fontFamily="@font/medieval_sharp"
             android:text="Casting Time:"
-            android:textColor="@color/deep_red"
+            android:textColor="@color/deep_blue"
             android:textStyle="bold"
             android:paddingBottom="24dp" />
 
@@ -68,8 +68,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="@font/medieval_sharp"
-            android:backgroundTint="@color/accent_gold"
-            android:textColor="@android:color/black"
+            android:backgroundTint="@color/deep_blue"
+            android:textColor="@android:color/white"
             android:text="Prepare Spell"
             android:layout_gravity="center"
             android:layout_marginBottom="16dp" />
