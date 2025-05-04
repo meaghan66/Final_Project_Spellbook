@@ -5,9 +5,6 @@ import android.util.Log
 import android.view.Menu
 import android.view.MenuInflater
 import android.view.View
-import android.widget.AdapterView
-import android.widget.ArrayAdapter
-import androidx.core.view.ViewCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
@@ -19,8 +16,10 @@ import com.spellbookapp.data.repository.SpellRepository
 import com.spellbookapp.network.RetrofitClient
 import com.spellbookapp.data.database.SpellDatabase
 
+// Fragment to show all of the available spells
 class AllSpellsFragment : Fragment(R.layout.fragment_all_spells) {
 
+    // Lazy instantiate the ViewModel with the factory
     private val viewModel: AllSpellsViewModel by lazy {
         ViewModelProvider(
             this,
@@ -32,17 +31,21 @@ class AllSpellsFragment : Fragment(R.layout.fragment_all_spells) {
 
     private lateinit var adapter: SpellAdapter
 
+    // On create instance
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setHasOptionsMenu(true)
     }
 
+    // On View Created instance
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        // Initialize the RecyclerView
         val recyclerView = view.findViewById<RecyclerView>(R.id.recyclerViewAllSpells)
         recyclerView.layoutManager = LinearLayoutManager(requireContext())
 
+        // Initialize the spell adapter with an empty list
         adapter = SpellAdapter(emptyList()) { spell ->
             val action = AllSpellsFragmentDirections.actionAllSpellsFragmentToSpellDetailFragment(
                 spellId = spell.index,
@@ -52,54 +55,30 @@ class AllSpellsFragment : Fragment(R.layout.fragment_all_spells) {
         }
         recyclerView.adapter = adapter
 
-//        val spinner = view.findViewById<androidx.appcompat.widget.AppCompatSpinner>(R.id.classSpinner)
-//        val classes = listOf(
-//            "All",
-//            "Barbarian",
-//            "Bard",
-//            "Cleric",
-//            "Druid",
-//            "Fighter",
-//            "Monk",
-//            "Paladin",
-//            "Ranger",
-//            "Rogue",
-//            "Sorcerer",
-//            "Warlock",
-//            "Wizard"
-//        )
-//        val spinnerAdapter = ArrayAdapter(requireContext(), android.R.layout.simple_spinner_item, classes)
-//        spinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-//        spinner.adapter = spinnerAdapter
-
-        // Only setup the spinner once (outside the spells observer)
-//        spinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
-//            override fun onItemSelected(parent: AdapterView<*>, view: View?, position: Int, id: Long) {
-//                val selectedClass = classes[position]
-//                filterByClass(selectedClass)
-//            }
-//
-//            override fun onNothingSelected(parent: AdapterView<*>) {}
-//        }
-
+        // Observe the list of spells and update the list when data is changed
         viewModel.spells.observe(viewLifecycleOwner) { spells ->
-            adapter.updateSpells(spells) // Always show full list first
+            adapter.updateSpells(spells)
         }
 
+        // Initial fetching of spells
         viewModel.fetchSpells()
     }
 
+    // Inflate the search
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         inflater.inflate(R.menu.menu_search, menu)
         val searchItem = menu.findItem(R.id.action_search)
         val searchView = searchItem.actionView as androidx.appcompat.widget.SearchView
 
+        // Set up the search
         searchView.queryHint = "Search Spells"
         searchView.setOnQueryTextListener(object : androidx.appcompat.widget.SearchView.OnQueryTextListener {
+            // Functionality for submitting text in the search
             override fun onQueryTextSubmit(query: String?): Boolean {
                 return false
             }
 
+            // Functionality for changing the text in search
             override fun onQueryTextChange(newText: String?): Boolean {
                 filterSpells(newText.orEmpty())
                 return true
@@ -107,27 +86,13 @@ class AllSpellsFragment : Fragment(R.layout.fragment_all_spells) {
         })
     }
 
+    // Filter the displayed spells by their name in the search bar
     private fun filterSpells(query: String) {
         val filteredList = viewModel.spells.value?.filter {
             it.name.contains(query, ignoreCase = true)
         } ?: emptyList()
+        // Update the spells for filtering
         adapter.updateSpells(filteredList)
     }
-
-//    private fun filterByClass(selectedClass: String) {
-//        val allSpells = viewModel.spells.value ?: return
-//
-//        val filtered = if (selectedClass == "All") {
-//            allSpells
-//        } else {
-//            val selectedClassLower = selectedClass.lowercase()
-//            allSpells.filter { spell ->
-//                spell.classes.orEmpty().any { clazz ->
-//                    clazz.index.equals(selectedClassLower, ignoreCase = true)
-//                }
-//            }
-//        }
-//        adapter.updateSpells(filtered)
-//    }
 
 }

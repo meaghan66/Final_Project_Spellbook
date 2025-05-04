@@ -1,7 +1,9 @@
 package com.spellbookapp.data.models
 
-// data class to hold the response from the meal api
+// Data class to hold the response from the D&D API
 data class SpellResponse(
+    // Number of spells
     val count: Int,
+    // List of actual spell data
     val results: List<Spell?>
 )
