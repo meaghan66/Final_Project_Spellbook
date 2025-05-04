@@ -5,15 +5,15 @@ import com.spellbookapp.data.models.SpellResponse
 import retrofit2.Response
 import retrofit2.http.GET
 import retrofit2.http.Path
-import retrofit2.http.Query
 
+// Retrofit instance for the D&D API endpoints
 interface DndApiService {
 
-    // Get all spells (returns a list of indexes and names)
+    // Fetch all the spells
     @GET("spells")
     suspend fun getAllSpells(): Response<SpellResponse>
 
-    // Get a spell by its index (ID)
+    // Fetch detailed data for a spell by its index
     @GET("spells/{index}")
     suspend fun getSpellByIndex(@Path("index") index: String): Response<Spell>
 }

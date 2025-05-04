@@ -15,11 +15,13 @@ import com.spellbookapp.network.RetrofitClient
 import com.spellbookapp.viewmodel.SpellDetailViewModel
 import com.spellbookapp.viewmodel.SpellDetailViewModelFactory
 
+// Fragment for displaying the details of a spell
 class SpellDetailFragment : Fragment(R.layout.fragment_spell_detail) {
 
+    // Get the navigation arguments
     private val args: SpellDetailFragmentArgs by navArgs()
 
-    // ViewModel initialized lazily with repository and factory
+    // Lazy initialize the SpellDetailViewModel with its factory
     private val viewModel: SpellDetailViewModel by lazy {
         ViewModelProvider(
             this,
@@ -32,44 +34,46 @@ class SpellDetailFragment : Fragment(R.layout.fragment_spell_detail) {
         ).get(SpellDetailViewModel::class.java)
     }
 
-    // Views
+    // UI Views
     private lateinit var spellName: TextView
-    private lateinit var spellLevel: TextView // New TextView for spell level
+    private lateinit var spellLevel: TextView
     private lateinit var spellDescription: TextView
     private lateinit var spellComponents: TextView
     private lateinit var spellCastingTime: TextView
     private lateinit var prepareButton: Button
 
+    // On view created instance
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        // Find views manually
+        // Initialize the UI elements
         spellName = view.findViewById(R.id.spellName)
-        spellLevel = view.findViewById(R.id.spellLevel) // Bind new TextView
+        spellLevel = view.findViewById(R.id.spellLevel)
         spellDescription = view.findViewById(R.id.spellDescription)
         spellComponents = view.findViewById(R.id.spellComponents)
         spellCastingTime = view.findViewById(R.id.spellCastingTime)
         prepareButton = view.findViewById(R.id.prepareButton)
+
+        // Setup the back button to go to the previous page when clicked
         val backButton = view.findViewById<Button>(R.id.backButton)
         backButton.setOnClickListener {
             findNavController().navigateUp()
         }
 
+        // Initially set the button as Prepare Spell and otherwise Remove spell if prepared
         prepareButton.text = if (args.isPrepared) "Remove Spell" else "Prepare Spell"
 
-        // Observe and update UI
+        // Observe and update UI from the spell data
         viewModel.getSpell(args.spellId).observe(viewLifecycleOwner) { spell ->
             spell?.let { loadedSpell ->
+                // Update with the spell components
                 spellName.text = loadedSpell.name
-
-                spellLevel.text = "Level: ${loadedSpell.level}" // Assuming the level property exists
-
+                spellLevel.text = "Level: ${loadedSpell.level}"
                 spellDescription.text = loadedSpell.description?.joinToString("\n") ?: "No description available."
-
                 spellComponents.text = loadedSpell.components?.joinToString(", ") ?: "No components listed."
-
                 spellCastingTime.text = loadedSpell.casting_time
 
+                // Handle the preparation vs removal button
                 prepareButton.setOnClickListener {
                     if (args.isPrepared) {
                         viewModel.removeSpell(loadedSpell.index)

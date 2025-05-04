@@ -14,12 +14,14 @@ import com.spellbookapp.data.repository.SpellRepository
 import com.spellbookapp.network.RetrofitClient
 import com.spellbookapp.viewmodel.PreparedSpellsViewModelFactory
 
+// Fragment to show the list of prepared spells
 class PreparedSpellsFragment : Fragment(R.layout.fragment_prepared_spells) {
 
+    // Setup the recyclerView and the adapter
     private lateinit var recyclerView: RecyclerView
     private lateinit var adapter: SpellAdapter
 
-    // ✅ Correct ViewModel
+    // Lazy setup the PreparedSpellsViewModel with its factory
     private val viewModel: PreparedSpellsViewModel by lazy {
         ViewModelProvider(
             this,
@@ -29,9 +31,11 @@ class PreparedSpellsFragment : Fragment(R.layout.fragment_prepared_spells) {
         ).get(PreparedSpellsViewModel::class.java)
     }
 
+    // On view created instance
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        // Initialize the recyclerView and adapter
         recyclerView = view.findViewById(R.id.recyclerViewPreparedSpells)
         recyclerView.layoutManager = LinearLayoutManager(requireContext())
         adapter = SpellAdapter(emptyList()) { spell ->
@@ -43,6 +47,7 @@ class PreparedSpellsFragment : Fragment(R.layout.fragment_prepared_spells) {
         }
         recyclerView.adapter = adapter
 
+        // Observe the prepared spells and update the list based on changes
         viewModel.preparedSpells.observe(viewLifecycleOwner) { spellEntities ->
             val spells = spellEntities.map { it.toSpell() }
             adapter.updateSpells(spells)
